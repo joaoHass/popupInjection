@@ -1,0 +1,72 @@
+.accordion-wrapper {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  font-weight: bold;
+  /* teal-900 tailwind */
+  color: #234e52;
+  line-height: 1.625;
+  /* teal-100 tailwind */
+  background-color: #e6fffa;
+  outline: none;
+  border: 0 solid #fff;
+  border-top-width: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  /* teal-500 tailwind */
+  border-color: #38b2ac;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: 0.4s;
+}
+
+.accordion {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  color: inherit;
+  background-color: inherit;
+  border: 0;
+  cursor: pointer;
+}
+
+.accordion::after {
+  content: "\002B"; /* Unicode character for "plus" sign (+) */
+  color: inherit;
+  float: right;
+  margin-left: 0.5rem;
+}
+
+.is-active::after {
+  content: "\2212"; /* Unicode character for "minus" sign (-) */
+}
+
+.accordion-wrapper:hover {
+  /* red-600 tailwind */
+  background-color: #b2f5ea;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.accordion__panel {
+  max-height: 0;
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+  background-color: inherit;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.has-active-tasks {
+  color: #742a2a;
+  background-color: #fed7d7;
+  border-color: #e53e3e;
+}
+
+.has-active-tasks:hover {
+  /* red-300 tailwind */
+  background-color: #feb2b2;
+}
