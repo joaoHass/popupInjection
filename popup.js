@@ -110,8 +110,35 @@ function createNewList(associativeArray, targetUL) {
   for (i; i < Object.keys(associativeArray).length; i++) {
     // criando o li
     let item = document.createElement("li")
-    // definindo o conteúdo do li
-    item.appendChild(document.createTextNode(Object.values(associativeArray)[i]))
+    // definindo o conteúdo do li (texto)
+    // https://stackoverflow.com/questions/31643204/textnode-or-textcontent
+    item.textContent = Object.values(associativeArray)[i]
+    item.addEventListener("click", () => {
+      // verificando se o usuário está em uma página válida para o clique ocorrer
+      if (
+        /^(https:\/\/)*(http:\/\/)*(www\.)*restrito\.blancmarketingdigital\.com\.br\/projects\/tasks\/?.*?$/.test(
+          window.location.href
+        )
+      ) {
+        // verificando se o card existe ainda na página (no caso de poder ter sido excluído)
+        if (
+          document.querySelector(
+            `a[data-edit="${Object.keys(associativeArray)[i - 1]}"]`
+          )
+        ) {
+          console.log("clique interno")
+
+          // pegando o card com o data-edit que tem o mesmo valor que o data-task_id da tarefa do li e simulando um click
+          document
+            .querySelector(`a[data-edit="${Object.keys(associativeArray)[i - 1]}"]`)
+            .click()
+        }
+      } else {
+        // caso não esteja numa página válida, avisar o user
+        alert("Você precisa estar na página de tasks!")
+      }
+    })
+
     // inserindo na ul
     newUL.appendChild(item)
   }
