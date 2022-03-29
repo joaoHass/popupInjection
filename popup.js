@@ -40,6 +40,24 @@ let tasksRunning = {}
 if (window.localStorage.getItem("tasksRunning")) {
   tasksRunning = JSON.parse(window.localStorage.getItem("tasksRunning"))
   renderPopup() // renderizando o popup
+
+  // adicionando ícones no título dos cards das tasks que existem
+  // essa parte do código foi adicionada aqui, específicamente, por quê a página recarrega sempre
+  // que há mudanças na tasksRunning, então só preciso fazer a checagem uma vez por reload
+  Object.keys(tasksRunning).forEach((id) => {
+    // se a pessoa está numa url válida
+    if (
+      window.location.href.includes(
+        "restrito.blancmarketingdigital.com.br/projects/tasks"
+      )
+    ) {
+      // pegando o card com o id correspondente
+      let taskCardText = document.querySelector(`a[data-edit="${id}"]`)
+
+      // trocando o texto e adicionando um ⏰
+      taskCardText.textContent = "⏰ " + taskCardText.textContent
+    }
+  })
 }
 
 //data-id
@@ -116,8 +134,8 @@ function createNewList(associativeArray, targetUL) {
     item.addEventListener("click", () => {
       // verificando se o usuário está em uma página válida para o clique ocorrer
       if (
-        /^(https:\/\/)*(http:\/\/)*(www\.)*restrito\.blancmarketingdigital\.com\.br\/projects\/tasks\/?.*?$/.test(
-          window.location.href
+        window.location.href.includes(
+          "restrito.blancmarketingdigital.com.br/projects/tasks"
         )
       ) {
         // verificando se o card existe ainda na página (no caso de poder ter sido excluído)
